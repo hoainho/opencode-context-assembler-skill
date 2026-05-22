@@ -1,0 +1,8 @@
+protected_patterns:
+  - main
+  - master
+  - develop
+  - release/*
+  - hotfix/*
+  - production
+  - prod
