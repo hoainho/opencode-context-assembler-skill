@@ -7,7 +7,8 @@
     "test:schema:valid": "for f in tests/schemas/valid/*.json; do npx ajv validate -s schemas/v1.0.0/context-bundle.schema.json -r schemas/v1.0.0/context-bundle-item.schema.json -c ajv-formats -d \"$f\" --strict=false --spec=draft2020 || exit 1; done",
     "test:schema:invalid": "for f in tests/schemas/invalid/*.json; do npx ajv validate -s schemas/v1.0.0/context-bundle.schema.json -r schemas/v1.0.0/context-bundle-item.schema.json -c ajv-formats -d \"$f\" --strict=false --spec=draft2020 2>&1 | grep -q invalid || (echo \"FAIL: $f unexpectedly passed\" && exit 1); done",
     "test:schema": "npm run test:schema:valid && npm run test:schema:invalid",
-    "test": "npm run test:schema"
+    "test:storage": "node --test tests/storage/*.test.js",
+    "test": "npm run test:schema && npm run test:storage"
   },
   "repository": {
     "type": "git",
