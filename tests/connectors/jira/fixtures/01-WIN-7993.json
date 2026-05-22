@@ -1,0 +1,21 @@
+{
+  "issue": {
+    "key": "WIN-7993",
+    "summary": "Daily bonus auto-claim stuck on retry loop",
+    "description": "Players see auto-claim spinner forever after award; happens on iOS Safari + Chrome desktop.",
+    "status": { "name": "In Progress" },
+    "priority": { "name": "High" },
+    "assignee": { "displayName": "Tùng Hoàng Đức" },
+    "updated": "2026-05-20T14:30:00Z"
+  },
+  "comments": {
+    "comments": [
+      { "id": "c1", "author": { "displayName": "Vân Nguyễn Thị Thanh" }, "body": "Repro on staging confirmed.", "created": "2026-05-20T15:00:00Z" }
+    ]
+  },
+  "links": {
+    "links": [
+      { "id": "l1", "type": "blocks", "outwardIssue": { "key": "WIN-7906" } }
+    ]
+  }
+}

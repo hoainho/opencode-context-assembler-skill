@@ -171,5 +171,9 @@ test('PR 5 self-check: shipped _template.connector.yaml is loadable AND skipped 
   const manifest = loadManifestFile(templatePath);
   assert.strictEqual(manifest.source, 'jira');
   const all = loadAllManifests(connectorsDir);
-  assert.strictEqual(all.length, 0, 'underscore-prefixed templates must be skipped');
+  const names = all.map((m) => m.filename);
+  assert.ok(
+    !names.includes('_template.connector.yaml'),
+    'underscore-prefixed templates must be skipped from auto-load'
+  );
 });

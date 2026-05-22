@@ -1,0 +1,9 @@
+{
+  "issue": null,
+  "search": {
+    "issues": [
+      { "key": "WIN-7900", "summary": "Daily bonus shows stale balance", "status": { "name": "Backlog" } },
+      { "key": "WIN-7901", "summary": "Bonus claim button disabled", "status": { "name": "Backlog" } }
+    ]
+  }
+}

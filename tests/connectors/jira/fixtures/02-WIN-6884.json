@@ -1,0 +1,13 @@
+{
+  "issue": {
+    "key": "WIN-6884",
+    "summary": "1st Party Tournaments Epic",
+    "description": "Implement tournament leaderboard, prize distribution, and Rive animations.",
+    "status": { "name": "In Progress" },
+    "priority": { "name": "High" },
+    "assignee": { "displayName": "Anh Phạm Việt" },
+    "updated": "2026-05-19T10:00:00Z"
+  },
+  "comments": { "comments": [] },
+  "links": { "links": [] }
+}
