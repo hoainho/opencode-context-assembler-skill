@@ -1,0 +1,21 @@
+{
+  "pr": {
+    "number": 4821,
+    "title": "Fix leaderboard refresh handler stale cache",
+    "body": "Fixes WIN-7993. Refresh leaderboard view after award via EventHub.",
+    "user": { "login": "tung-hd" },
+    "state": "open",
+    "updated_at": "2026-05-20T15:00:00Z"
+  },
+  "files": {
+    "files": [
+      { "filename": "src/sagas/leaderboardSaga.js", "additions": 12, "deletions": 4, "patch": "@@\n+ yield put(REFRESH);\n" },
+      { "filename": "src/api/leaderboard.ts", "additions": 8, "deletions": 0 }
+    ]
+  },
+  "reviews": {
+    "reviews": [
+      { "id": "r1", "user": { "login": "van-nguyen" }, "state": "APPROVED", "body": "LGTM" }
+    ]
+  }
+}
