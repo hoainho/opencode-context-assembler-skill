@@ -1,0 +1,22 @@
+{
+  "issue": {
+    "key": "WIN-7518",
+    "summary": "MFA extended cooldown does not reset",
+    "description": "After 5 failed attempts, cooldown should be 1h; observed 24h+.",
+    "status": { "name": "In Review" },
+    "priority": { "name": "Critical" },
+    "assignee": { "displayName": "Phan Hoàng Trọng" },
+    "updated": "2026-05-21T09:15:00Z"
+  },
+  "comments": {
+    "comments": [
+      { "id": "c1", "author": { "displayName": "Mohit Madnani" }, "body": "Redis TTL not being cleared on success.", "created": "2026-05-21T10:00:00Z" },
+      { "id": "c2", "author": { "displayName": "Phan Hoàng Trọng" }, "body": "Found it — DEL not called in success path.", "created": "2026-05-21T11:30:00Z" }
+    ]
+  },
+  "links": {
+    "links": [
+      { "id": "l1", "type": "relates", "outwardIssue": { "key": "WIN-6881" } }
+    ]
+  }
+}

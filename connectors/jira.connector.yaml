@@ -1,0 +1,25 @@
+name: jira-connector
+source: jira
+version: 1.0.0
+description: |
+  Pulls Jira ticket context for bug-fix / feature / review tasks.
+  Primary: jira_jira_issues:get + jira_jira_comments:get + jira_jira_links:list.
+  Empty fallback: jira_jira_search with intent keywords.
+  Unavailable: emits gap entry, never silent.
+task_types:
+  - bug-fix
+  - feature
+  - review
+mcp:
+  primary: jira_jira_issues
+  empty_fallback: jira_jira_search
+  unavailable_fallback: gap-emit
+query_template:
+  primary: '{ "action": "get", "issueKey": "{ticket_id}" }'
+  empty_fallback: '{ "action": "search", "jql": "project = {project} AND text ~ \"{intent_keywords}\"" }'
+timeout_ms: 15000
+rate_limit_per_minute: 30
+evidence_quality:
+  primary: verified
+  empty_fallback: degraded
+  unavailable_fallback: partial
