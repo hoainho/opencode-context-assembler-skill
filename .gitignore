@@ -1,0 +1,26 @@
+# Bundle artifacts (may contain customer data / secrets)
+.opencode/context-bundles/
+.opencode/audit/
+
+# Metrics (local-only telemetry)
+.opencode/metrics/
+
+# Cap-ledger HMAC files
+.opencode/.cap-ledger.ndjson
+
+# Node
+node_modules/
+dist/
+*.log
+.DS_Store
+
+# Test artifacts
+coverage/
+.nyc_output/
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+Thumbs.db
