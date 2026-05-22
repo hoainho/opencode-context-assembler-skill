@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opencode.ai/schemas/context-assembler/v1.0.0/bundle-lock.schema.json",
+  "title": "BundleLock",
+  "description": "Immutable SHA-256-hashed snapshot written at Phase 3 user approval. Per Boundary 4: required for replay determinism. Once status=approved, this file is the source of truth — never modified.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "bundle_id",
+    "approved_at",
+    "approved_by",
+    "hash",
+    "items_hash",
+    "audit_log_ref",
+    "scoring_strategy"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "bundle_id": {
+      "type": "string",
+      "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$"
+    },
+    "approved_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "approved_by": {
+      "type": "string",
+      "minLength": 1,
+      "description": "User identity at moment of approval (git config user.email)."
+    },
+    "hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$",
+      "description": "SHA-256 of canonical JSON of items[] (matches ContextBundle.hash). Replay must reproduce this exact value."
+    },
+    "items_hash": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["uri", "content_hash"],
+        "additionalProperties": false,
+        "properties": {
+          "uri": {"type": "string", "minLength": 1},
+          "content_hash": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "description": "SHA-256 of item.content. Per-item hash enables granular drift detection."
+          }
+        }
+      },
+      "description": "Per-item hash table. Replay verifies each item's content matches its hash."
+    },
+    "audit_log_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scoring_strategy": {
+      "type": "string",
+      "enum": ["content-hash-v1"]
+    },
+    "consumed_by": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["skill", "consumed_at"],
+        "additionalProperties": false,
+        "properties": {
+          "skill": {"type": "string", "minLength": 1},
+          "consumed_at": {"type": "string", "format": "date-time"}
+        }
+      },
+      "description": "Append-only log of downstream skills that consumed this bundle (sidecar wrapper integration). Optional."
+    }
+  }
+}

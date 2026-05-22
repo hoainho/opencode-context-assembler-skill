@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "bundle_id": "01JVK2D9N3R5W7XY8Z2A4B6C8E",
+  "task_intent": "fix WIN-7993 daily bonus auto-claim stuck",
+  "task_type": "bug-fix",
+  "created_at": "2026-05-22T08:14:00Z",
+  "created_by": "nhoxtvt@gmail.com",
+  "items": [
+    {
+      "uri": "jira://WIN-7993",
+      "name": "WIN-7993",
+      "title": "Daily bonus auto-claim stuck",
+      "content": "Players see auto-claim spinner forever after award...",
+      "source": "jira",
+      "source_ref": "WIN-7993",
+      "fetched_at": "2026-05-22T08:14:03Z",
+      "fetched_by": "nhoxtvt@gmail.com",
+      "approved": true,
+      "relevance_score": 0.94,
+      "relevance_reason": "exact-ticket-match",
+      "evidence_quality": "verified",
+      "evidence_quality_reason": "primary-mcp-call",
+      "mcp_used": "jira_jira_issues",
+      "query_issued": "{\"action\":\"get\",\"issueKey\":\"WIN-7993\"}",
+      "extensions": {}
+    }
+  ],
+  "gaps": [],
+  "audit_log_ref": ".opencode/audit/2026-05-22/01JVK2D9N3R5W7XY8Z2A4B6C8E.ndjson",
+  "status": "approved",
+  "hash": "a4f3b8c2e7d1f9a6b3c8e2d7f4a9b6c3e8d1f7a4b9c2e5d8f1a4b7c9e2d5f8a1",
+  "cost_tokens": 1250,
+  "cost_budget": 12000,
+  "scoring_strategy": "content-hash-v1"
+}

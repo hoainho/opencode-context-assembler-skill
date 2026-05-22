@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "bundle_id": "RWAVE2XAZJPFTDMNTV44Z98GQP",
+  "task_intent": "implement tournament leaderboard refresh feature",
+  "task_type": "feature",
+  "created_at": "2026-05-22T09:00:00Z",
+  "created_by": "nhoxtvt@gmail.com",
+  "items": [
+    {
+      "uri": "jira://WIN-6884",
+      "name": "WIN-6884",
+      "title": "1st Party Tournaments Epic",
+      "content": "Epic body...",
+      "source": "jira",
+      "source_ref": "WIN-6884",
+      "fetched_at": "2026-05-22T09:00:02Z",
+      "fetched_by": "nhoxtvt@gmail.com",
+      "approved": true,
+      "relevance_score": 0.88,
+      "relevance_reason": "epic-key-in-task-intent",
+      "evidence_quality": "verified",
+      "evidence_quality_reason": "primary-mcp-call",
+      "mcp_used": "jira_jira_issues",
+      "query_issued": "{\"action\":\"get\",\"issueKey\":\"WIN-6884\"}",
+      "extensions": {"epic_link_count": 12}
+    },
+    {
+      "uri": "github://playsweeps-web/pull/4821",
+      "name": "PR #4821 — leaderboard refresh handler",
+      "content": "diff body...",
+      "source": "github",
+      "source_ref": "playsweeps-web#4821",
+      "fetched_at": "2026-05-22T09:00:05Z",
+      "fetched_by": "nhoxtvt@gmail.com",
+      "approved": true,
+      "relevance_score": 0.72,
+      "relevance_reason": "linked-from-jira-ticket",
+      "evidence_quality": "verified",
+      "evidence_quality_reason": "primary-mcp-call",
+      "mcp_used": "github_get_pull_request",
+      "query_issued": "{\"owner\":\"hoainho\",\"repo\":\"playsweeps-web\",\"pull_number\":4821}",
+      "extensions": {}
+    },
+    {
+      "uri": "atom://playsweeps-web/2026-04-01-leaderboard-cache",
+      "name": "Past atom: leaderboard cache invalidation",
+      "content": "We previously decided...",
+      "source": "atoms",
+      "source_ref": "playsweeps-web/2026-04-01-leaderboard-cache",
+      "fetched_at": "2026-05-22T09:00:01Z",
+      "fetched_by": "nhoxtvt@gmail.com",
+      "approved": true,
+      "relevance_score": 0.65,
+      "relevance_reason": "keyword-overlap-jaccard-0.55",
+      "evidence_quality": "verified",
+      "evidence_quality_reason": "primary-mcp-call",
+      "mcp_used": "omo-session-distiller_recall",
+      "query_issued": "{\"query\":\"leaderboard refresh\",\"repo\":\"playsweeps-web\",\"limit\":5}",
+      "extensions": {}
+    }
+  ],
+  "gaps": [
+    {"expected": "confluence:leaderboard-design-spec", "reason": "confluence connector deferred to v2"}
+  ],
+  "audit_log_ref": ".opencode/audit/2026-05-22/RWAVE2XAZJPFTDMNTV44Z98GQP.ndjson",
+  "status": "approved",
+  "hash": "b7c3e8d2f1a9b6c3e8d2f4a9b6c3e8d2f7a9b6c3e8d2f4a9b6c3e8d2f7a9b6c3",
+  "cost_tokens": 4250,
+  "cost_budget": 12000,
+  "scoring_strategy": "content-hash-v1"
+}

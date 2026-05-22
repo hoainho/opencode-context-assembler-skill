@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opencode.ai/schemas/context-assembler/v1.0.0/context-bundle.schema.json",
+  "title": "ContextBundle",
+  "description": "A user-reviewed immutable multi-source context bundle. Per R4 decisions: scoring_strategy=content-hash-v1 (no embeddings), 12000 token cost ceiling with active compaction, mandatory Phase 3 review gate.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "bundle_id",
+    "task_intent",
+    "task_type",
+    "created_at",
+    "created_by",
+    "items",
+    "gaps",
+    "audit_log_ref",
+    "status",
+    "hash",
+    "cost_tokens",
+    "cost_budget",
+    "scoring_strategy"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0",
+      "description": "Pinned to 1.0.0 for v1. Schema changes require version bump."
+    },
+    "bundle_id": {
+      "type": "string",
+      "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
+      "description": "ULID format: 26 chars, Crockford base32, time-ordered."
+    },
+    "task_intent": {
+      "type": "string",
+      "minLength": 1,
+      "description": "User's original task description."
+    },
+    "task_type": {
+      "type": "string",
+      "enum": ["bug-fix", "feature", "review", "design", "migration", "other"],
+      "description": "Per source-routing-table.md task taxonomy."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "created_by": {
+      "type": "string",
+      "minLength": 1,
+      "description": "User identity (git config user.email)."
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "context-bundle-item.schema.json"
+      },
+      "description": "Collected context items. Empty array allowed only for fully-gapped bundles."
+    },
+    "gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["expected", "reason"],
+        "additionalProperties": false,
+        "properties": {
+          "expected": {"type": "string", "minLength": 1},
+          "reason": {"type": "string", "minLength": 1}
+        }
+      },
+      "description": "What couldn't be collected and why. Per F-1 regression: errors are first-class, never silent."
+    },
+    "audit_log_ref": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Path to .opencode/audit/<date>/<bundle_id>.ndjson"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "framing",
+        "discovering",
+        "collecting",
+        "review-pending",
+        "approved",
+        "consumed",
+        "expired"
+      ]
+    },
+    "hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$",
+      "description": "SHA-256 of canonical JSON of items[]. Replay determinism guarantee per Boundary 4."
+    },
+    "cost_tokens": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Sum of token cost across all items. Subject to cost_budget hard cap."
+    },
+    "cost_budget": {
+      "type": "integer",
+      "const": 12000,
+      "description": "Locked default per Section 0 #3. Active compaction at >=10000; abort at >=12000."
+    },
+    "scoring_strategy": {
+      "type": "string",
+      "enum": ["content-hash-v1"],
+      "description": "Per R4 NR-2: deterministic ranking only in v1. Future strategies opt-in via this field."
+    },
+    "consumed_bundle_id": {
+      "type": "string",
+      "description": "Set by downstream skill at consumption time (sidecar wrapper integration). Optional."
+    }
+  }
+}
