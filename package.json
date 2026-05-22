@@ -13,7 +13,8 @@
     "test:audit": "node --test tests/audit/*.test.js",
     "test:boundaries": "node --test tests/boundaries/*.test.js",
     "test:jira": "node --test tests/connectors/jira/*.test.js",
-    "test": "npm run test:schema && npm run test:storage && npm run test:connectors && npm run test:intent && npm run test:audit && npm run test:boundaries && npm run test:jira"
+    "test:github": "node --test tests/connectors/github/*.test.js",
+    "test": "npm run test:schema && npm run test:storage && npm run test:connectors && npm run test:intent && npm run test:audit && npm run test:boundaries && npm run test:jira && npm run test:github"
   },
   "repository": {
     "type": "git",

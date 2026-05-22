@@ -1,0 +1,17 @@
+{
+  "pr": {
+    "number": 2900,
+    "title": "Daily bonus auto-claim retry fix (WIN-7993)",
+    "body": "Caps retries at 3 + introduces exponential backoff",
+    "user": { "login": "phan-trong" },
+    "state": "closed",
+    "merged_at": "2026-05-18T09:00:00Z",
+    "updated_at": "2026-05-18T09:00:00Z"
+  },
+  "files": {
+    "files": [
+      { "filename": "src/redux/bonus/saga.js", "additions": 25, "deletions": 8 }
+    ]
+  },
+  "reviews": { "reviews": [] }
+}
