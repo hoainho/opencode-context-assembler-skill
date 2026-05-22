@@ -18,6 +18,7 @@ Collection is automated. **Execution is not.**
 
 ---
 
+<!-- anti-vision -->
 ## Anti-vision — 8 things this skill will NEVER do
 
 1. **NO autonomous task decomposition** — skill never decides what tasks to do

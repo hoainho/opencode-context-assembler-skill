@@ -1,4 +1,5 @@
 {
+  "$schema": "https://opencode.ai/schemas/skill/v1.json",
   "name": "context-assembler",
   "version": "0.0.0",
   "description": "Pre-task artifact producer. Collects multi-source context (Jira+GitHub+atoms) into a user-reviewed immutable bundle before any AI task runs. Zero autonomy, 5 hard permission boundaries, replayable audit log.",
@@ -58,12 +59,12 @@
     }
   ],
   "phases": [
-    {"id": 0, "name": "Frame", "output": "task.intent.json", "user_gate": "confirm intent"},
-    {"id": 1, "name": "Discover", "output": "sources.manifest.json", "user_gate": "disable any connector"},
-    {"id": 1.5, "name": "Recall short-circuit", "output": "atom hits if confidence ≥80", "user_gate": "skip external collection if atoms answer"},
-    {"id": 2, "name": "Collect", "output": "bundle.raw/ + audit entries", "user_gate": "none"},
-    {"id": 3, "name": "Synthesize", "output": "bundle.context.{md,json} + bundle.gaps.md + bundle.lock.json", "user_gate": "MANDATORY non-skippable review (fast-path UX)"},
-    {"id": 4, "name": "Handoff", "output": "invoke consumer skill OR return bundle path", "user_gate": "pick consumer"}
+    {"id": "0", "name": "Frame", "output": "task.intent.json", "user_gate": "confirm intent"},
+    {"id": "1", "name": "Discover", "output": "sources.manifest.json", "user_gate": "disable any connector"},
+    {"id": "1.5", "name": "Recall short-circuit", "output": "atom hits if confidence ≥80", "user_gate": "skip external collection if atoms answer"},
+    {"id": "2", "name": "Collect", "output": "bundle.raw/ + audit entries", "user_gate": "none"},
+    {"id": "3", "name": "Synthesize", "output": "bundle.context.{md,json} + bundle.gaps.md + bundle.lock.json", "user_gate": "MANDATORY non-skippable review (fast-path UX)"},
+    {"id": "4", "name": "Handoff", "output": "invoke consumer skill OR return bundle path", "user_gate": "pick consumer"}
   ],
   "v1_connectors": ["jira", "github", "atoms"],
   "deferred_connectors": ["confluence", "sheets", "browser-repro", "code-context", "slack-hybrid"],

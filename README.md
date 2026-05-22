@@ -30,7 +30,7 @@ This repo implements [the v1 plan](https://github.com/hoainho/opencode-context-a
 | 3: Composition | 17-21 | Planned |
 | 4: Production-Ready Gate | 22-25 | Planned |
 
-## The 7 anti-features (what this skill will NEVER do)
+## The 8 anti-features (what this skill will NEVER do)
 
 1. NO autonomous task decomposition
 2. NO auto-execute after assembly (mandatory review gate)
@@ -38,7 +38,7 @@ This repo implements [the v1 plan](https://github.com/hoainho/opencode-context-a
 4. NO proactive polling / background watch
 5. NO cross-task synthesis
 6. NO write-back to sources (read-only audit-proven)
-7. NO LLM-generated narrative (raw quotes with citations only)
+7. NO LLM-generated narrative in v1 (raw quotes with citations only)
 8. NO embedding service in v1 (deterministic content-hash ranking)
 
 ## The 5 permission boundaries
