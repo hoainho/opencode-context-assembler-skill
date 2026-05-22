@@ -1,0 +1,83 @@
+{
+  "$schema": "https://opencode.ai/schemas/skill/v1.json",
+  "name": "context-assembler",
+  "version": "0.0.0",
+  "description": "Pre-task artifact producer. Collects multi-source context (Jira+GitHub+atoms) into a user-reviewed immutable bundle before any AI task runs. Zero autonomy, 5 hard permission boundaries, replayable audit log.",
+  "author": "Hoài Nhớ <nhoxtvt@gmail.com>",
+  "license": "MIT",
+  "repository": "https://github.com/hoainho/opencode-context-assembler-skill",
+  "trigger_phrases": [
+    "assemble context bundle for",
+    "gather context for",
+    "prep ticket"
+  ],
+  "anti_vision": [
+    "NO autonomous task decomposition",
+    "NO auto-execute after assembly (mandatory review gate)",
+    "NO smart source selection (sources explicit per task-type)",
+    "NO proactive polling / background watch",
+    "NO cross-task synthesis",
+    "NO write-back to sources (read-only audit-proven)",
+    "NO LLM-generated narrative in v1 (raw quotes with citations only)",
+    "NO embedding service in v1 (deterministic content-hash ranking only)"
+  ],
+  "permission_boundaries": [
+    {
+      "id": 1,
+      "name": "write-boundary",
+      "description": "No commit/push/merge/reset --hard to protected branches",
+      "enforcement": "git-guard middleware parses every bash command before exec",
+      "override": "--override-write-boundary --reason=\"...\" (audited)"
+    },
+    {
+      "id": 2,
+      "name": "artifact-cap",
+      "description": "Max 5 auto-bundles/day; user-initiated bundles uncounted",
+      "enforcement": ".opencode/.cap-ledger.ndjson append-only HMAC-signed counter",
+      "override": "none (intentional)"
+    },
+    {
+      "id": 3,
+      "name": "surface-boundary",
+      "description": "No Slack/Jira/Confluence/team broadcast without explicit per-call approval",
+      "enforcement": "write-surface MCP tool allowlist + literal APPROVE SEND prompt; no batching",
+      "override": "none (designed friction)"
+    },
+    {
+      "id": 4,
+      "name": "audit-boundary",
+      "description": "Every action logged + replayable, no black box",
+      "enforcement": ".opencode/audit/<date>/<bundle_id>.ndjson with result hash; replay via `context-assembler replay <bundle_id>` reproduces bit-identical bundle.lock.json hash",
+      "override": "none"
+    },
+    {
+      "id": 5,
+      "name": "tool-boundary",
+      "description": "Destructive tools (rm -rf, DROP TABLE, force push) blocked at runtime",
+      "enforcement": ".opencode/tool-blocklist.yaml static regex blocklist (user-extensible)",
+      "override": "none (invoke destructive tools outside the skill)"
+    }
+  ],
+  "phases": [
+    {"id": "0", "name": "Frame", "output": "task.intent.json", "user_gate": "confirm intent"},
+    {"id": "1", "name": "Discover", "output": "sources.manifest.json", "user_gate": "disable any connector"},
+    {"id": "1.5", "name": "Recall short-circuit", "output": "atom hits if confidence ≥80", "user_gate": "skip external collection if atoms answer"},
+    {"id": "2", "name": "Collect", "output": "bundle.raw/ + audit entries", "user_gate": "none"},
+    {"id": "3", "name": "Synthesize", "output": "bundle.context.{md,json} + bundle.gaps.md + bundle.lock.json", "user_gate": "MANDATORY non-skippable review (fast-path UX)"},
+    {"id": "4", "name": "Handoff", "output": "invoke consumer skill OR return bundle path", "user_gate": "pick consumer"}
+  ],
+  "v1_connectors": ["jira", "github", "atoms"],
+  "deferred_connectors": ["confluence", "sheets", "browser-repro", "code-context", "slack-hybrid"],
+  "production_ready_criteria": {
+    "fpbar": {"threshold": 0.80, "per_category_floor": 0.70},
+    "replay_determinism": {"threshold": 0.99},
+    "bundle_coverage_rate": {"threshold": 0.30},
+    "time_to_handoff_median": {"cold_seconds": 300, "recall_hit_seconds": 90}
+  },
+  "rubber_stamp_throttle": {
+    "trigger_window": 20,
+    "trigger_threshold": 0.90,
+    "throttle_duration_bundles": 10
+  },
+  "scoring_strategy": "content-hash-v1"
+}
