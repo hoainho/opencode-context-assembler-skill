@@ -10,7 +10,8 @@
     "test:storage": "node --test tests/storage/*.test.js",
     "test:connectors": "node --test tests/connectors/*.test.js",
     "test:intent": "node --test tests/intent/*.test.js",
-    "test": "npm run test:schema && npm run test:storage && npm run test:connectors && npm run test:intent"
+    "test:audit": "node --test tests/audit/*.test.js",
+    "test": "npm run test:schema && npm run test:storage && npm run test:connectors && npm run test:intent && npm run test:audit"
   },
   "repository": {
     "type": "git",
