@@ -1,0 +1,26 @@
+name: example-connector
+source: jira
+version: 1.0.0
+description: |
+  Template connector manifest. OSS contributors fork this file
+  to add new sources. Replace `source` with a value from the
+  enum (jira, github, atoms, confluence, sheets, browser-repro,
+  code-context, slack-hybrid). Files starting with `_` are skipped
+  by the loader and treated as templates / examples.
+task_types:
+  - bug-fix
+  - feature
+  - review
+mcp:
+  primary: jira_jira_issues
+  empty_fallback: jira_jira_search
+  unavailable_fallback: gap-emit
+query_template:
+  primary: '{ "action": "get", "issueKey": "{ticket_id}" }'
+  empty_fallback: '{ "action": "search", "jql": "project = WIN AND text ~ \"{intent_keywords}\"" }'
+timeout_ms: 10000
+rate_limit_per_minute: 30
+evidence_quality:
+  primary: verified
+  empty_fallback: degraded
+  unavailable_fallback: partial
