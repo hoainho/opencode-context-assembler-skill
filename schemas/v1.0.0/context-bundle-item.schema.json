@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opencode.ai/schemas/context-assembler/v1.0.0/context-bundle-item.schema.json",
+  "title": "ContextBundleItem",
+  "description": "A single item in a Context Assembler bundle. Adopts MCP Resource schema as base + Continue ContextItem.content + assembler extensions. Per R4 NR-2: scoring uses content-hash, no embeddings.",
+  "type": "object",
+  "required": [
+    "uri",
+    "name",
+    "content",
+    "source",
+    "fetched_at",
+    "fetched_by",
+    "approved",
+    "relevance_score",
+    "relevance_reason",
+    "extensions"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "uri": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique identifier per MCP Resource spec. Format: <scheme>://<source-ref>. E.g., jira://WIN-7102, github://playsweeps-web/pull/4821, atom://playsweeps-web/2026-05-21-pilot-1-WIN-7993."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Programmatic name (MCP Resource field)."
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable title (MCP Resource field, optional)."
+    },
+    "description": {
+      "type": "string",
+      "description": "Hint for LLM (MCP Resource field, optional)."
+    },
+    "mimeType": {
+      "type": "string",
+      "description": "MCP Resource field, optional. E.g., text/markdown, application/json."
+    },
+    "annotations": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "audience": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["user", "assistant"]
+          },
+          "uniqueItems": true
+        },
+        "priority": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "MCP Resource priority annotation (0.0-1.0)."
+        },
+        "lastModified": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp from source system."
+        }
+      }
+    },
+    "content": {
+      "type": "string",
+      "description": "Resolved text content (Continue.dev ContextItem.content field). Injected into downstream LLM."
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "jira",
+        "github",
+        "atoms",
+        "confluence",
+        "sheets",
+        "browser-repro",
+        "code-context",
+        "slack-hybrid"
+      ],
+      "description": "Which connector produced this item. v1 uses jira/github/atoms only; others reserved for v2+."
+    },
+    "source_ref": {
+      "type": "string",
+      "description": "Entity reference within source (e.g., 'WIN-7102', 'playsweeps-web#4821'). Optional but recommended."
+    },
+    "fetched_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when this item was retrieved."
+    },
+    "fetched_by": {
+      "type": "string",
+      "minLength": 1,
+      "description": "User identity (typically git config user.email)."
+    },
+    "approved": {
+      "type": "boolean",
+      "description": "Set true at Phase 3 user review. Items with approved=false cannot be handed off."
+    },
+    "relevance_score": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "description": "Computed via content-hash + keyword-overlap + recency-decay (R4 NR-2). NO embeddings in v1."
+    },
+    "relevance_reason": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Why this item scored as it did. E.g., 'exact-ticket-match', 'keyword-overlap-jaccard-0.6', 'recency-30d'."
+    },
+    "conflict_marker": {
+      "type": "boolean",
+      "description": "True if this item contradicts another item in the same bundle. User decides at Phase 3 review."
+    },
+    "evidence_quality": {
+      "type": "string",
+      "enum": ["verified", "degraded", "partial"],
+      "description": "Per source-routing-table.md provenance. verified=primary MCP call success; degraded=fallback search; partial=no-daemon filesystem-grep."
+    },
+    "evidence_quality_reason": {
+      "type": "string",
+      "enum": [
+        "primary-mcp-call",
+        "fallback-search",
+        "filesystem-grep",
+        "no-daemon"
+      ],
+      "description": "Frozen enum per Oracle PR 2 S-1. Add new values via schema_version bump only."
+    },
+    "mcp_used": {
+      "type": "string",
+      "description": "Exact MCP tool name used. Required for replay determinism (Boundary 4)."
+    },
+    "query_issued": {
+      "type": "string",
+      "description": "Canonical JSON of the query args. Required for replay determinism."
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Source-specific freeform fields (Metis R1 escape valve). Promoted to typed schemas as connectors stabilize.",
+      "additionalProperties": true
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "name": "opencode-context-assembler-skill",
+  "version": "0.0.0",
+  "description": "Context Assembler — pre-task artifact producer for opencode AI coding skills. Collects multi-source context into a user-reviewed immutable bundle before any AI task runs.",
+  "private": true,
+  "scripts": {
+    "test:schema:valid": "for f in tests/schemas/valid/*.json; do npx ajv validate -s schemas/v1.0.0/context-bundle.schema.json -r schemas/v1.0.0/context-bundle-item.schema.json -c ajv-formats -d \"$f\" --strict=false --spec=draft2020 || exit 1; done",
+    "test:schema:invalid": "for f in tests/schemas/invalid/*.json; do npx ajv validate -s schemas/v1.0.0/context-bundle.schema.json -r schemas/v1.0.0/context-bundle-item.schema.json -c ajv-formats -d \"$f\" --strict=false --spec=draft2020 2>&1 | grep -q invalid || (echo \"FAIL: $f unexpectedly passed\" && exit 1); done",
+    "test:schema": "npm run test:schema:valid && npm run test:schema:invalid",
+    "test": "npm run test:schema"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hoainho/opencode-context-assembler-skill.git"
+  },
+  "keywords": [
+    "opencode",
+    "ai-coding",
+    "context",
+    "mcp",
+    "skill",
+    "agent"
+  ],
+  "author": "Hoài Nhớ <nhoxtvt@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hoainho/opencode-context-assembler-skill/issues"
+  },
+  "homepage": "https://github.com/hoainho/opencode-context-assembler-skill#readme",
+  "devDependencies": {
+    "ajv": "^8.20.0",
+    "ajv-cli": "^5.0.0",
+    "ajv-formats": "^3.0.1"
+  }
+}

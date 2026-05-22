@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "bundle_id": "SPJBWKJ1TXQ51GHE94W6N37HPB",
+  "task_intent": "investigate flaky tournament leaderboard test",
+  "task_type": "bug-fix",
+  "created_at": "2026-05-22T12:00:00Z",
+  "created_by": "nhoxtvt@gmail.com",
+  "items": [
+    {
+      "uri": "atom://playsweeps-web/2026-04-leaderboard-flaky",
+      "name": "Past atom (filesystem-grep fallback)",
+      "content": "Atom recall MCP daemon was down; recovered via grep on ~/.config/opencode/memory/atoms/",
+      "source": "atoms",
+      "source_ref": "playsweeps-web/2026-04-leaderboard-flaky",
+      "fetched_at": "2026-05-22T12:00:01Z",
+      "fetched_by": "nhoxtvt@gmail.com",
+      "approved": true,
+      "relevance_score": 0.55,
+      "relevance_reason": "filesystem-grep-keyword-match",
+      "evidence_quality": "partial",
+      "evidence_quality_reason": "no-daemon",
+      "mcp_used": "filesystem-grep",
+      "query_issued": "{\"pattern\":\"leaderboard.*flaky\",\"path\":\"~/.config/opencode/memory/atoms/playsweeps-web/\"}",
+      "extensions": {"daemon_status": "down", "fallback_strategy": "filesystem-grep"}
+    },
+    {
+      "uri": "github://playsweeps-web/issues/3201",
+      "name": "GitHub Issue #3201 (search fallback)",
+      "content": "Found via repo-wide search after epic-key returned 0 results",
+      "source": "github",
+      "source_ref": "playsweeps-web#3201",
+      "fetched_at": "2026-05-22T12:00:03Z",
+      "fetched_by": "nhoxtvt@gmail.com",
+      "approved": true,
+      "relevance_score": 0.45,
+      "relevance_reason": "fallback-search-recency-2d",
+      "evidence_quality": "degraded",
+      "evidence_quality_reason": "fallback-search",
+      "mcp_used": "github_search_code",
+      "query_issued": "{\"q\":\"leaderboard flaky\",\"per_page\":10}",
+      "extensions": {}
+    }
+  ],
+  "gaps": [],
+  "audit_log_ref": ".opencode/audit/2026-05-22/SPJBWKJ1TXQ51GHE94W6N37HPB.ndjson",
+  "status": "approved",
+  "hash": "d9e5f3a8b6c4e9d2f5a8b6c4e9d2f5a8b6c4e9d2f5a8b6c4e9d2f5a8b6c4e9d2",
+  "cost_tokens": 3100,
+  "cost_budget": 12000,
+  "scoring_strategy": "content-hash-v1"
+}

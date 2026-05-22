@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "bundle_id": "98MNFDCS0PF2QMBRBB08MEEVCV",
+  "task_intent": "fix WIN-9999 unknown bug",
+  "task_type": "bug-fix",
+  "created_at": "2026-05-22T11:00:00Z",
+  "created_by": "nhoxtvt@gmail.com",
+  "items": [],
+  "gaps": [
+    {"expected": "WIN-9999", "reason": "jira MCP unavailable - auth refresh required"},
+    {"expected": "github recent activity for WIN-9999", "reason": "no PR references found in last 30d"},
+    {"expected": "atom recall for 'unknown bug'", "reason": "max_score 12 below 60 threshold"}
+  ],
+  "audit_log_ref": ".opencode/audit/2026-05-22/98MNFDCS0PF2QMBRBB08MEEVCV.ndjson",
+  "status": "review-pending",
+  "hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "cost_tokens": 0,
+  "cost_budget": 12000,
+  "scoring_strategy": "content-hash-v1"
+}
